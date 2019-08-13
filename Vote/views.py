@@ -80,22 +80,54 @@ def login_user(request):
     if request.method=="POST":
         username=request.POST.get('username')
         password=request.POST.get('password')
+        request.session['username']=username
         user=authenticate(username=username,password=password)
 
         if user:
             login(request,user)
             user_info=Voters_Enrollment.objects.get(username=username)
             place=user_info.place
-            #print(user_info.voted)
             candidate_info=Candidate_Enrollment.objects.filter(place=place)
-            return render(request,'Vote/profile.html',{'username':username,'user_info':user_info, 'candidate_info':candidate_info})
+            #return render(request,'Vote/profile.html',{'username':username,'user_info':user_info, 'candidate_info':candidate_info})
+            return HttpResponseRedirect('/vote/profile')
+            #print(username)
 
     else:
         return render(request,'Vote/login.html')
 
+def profile(request):
+    if request.method=="POST":
+        username=request.session['username']
+        voter=Voters_Enrollment.objects.get(username=username)
+        name=request.POST.get("cand_name")
+        token=request.POST.get("token_no")
+        if token==voter.tokens:
+            candidate=Candidate_Enrollment.objects.get(name=name)
+            candidate.count_of_votes+=1
+            print(candidate.name)
+            print(candidate.count_of_votes)
+            candidate.save()
+            voter.voted=True
+            voter.token_expire=True
+            voter.save()
+
+            return logout_user(request)      #vote is counted
+        else:
+            return logout_user(request)      #vote is not counted
+
+    else:
+        username=request.session['username']
+        user_info=Voters_Enrollment.objects.get(username=username)
+        place=user_info.place
+        candidate_info=Candidate_Enrollment.objects.filter(place=place)
+        return render(request,'Vote/profile.html',{'username':username,'user_info':user_info, 'candidate_info':candidate_info})
+ 
+
 def logout_user(request):
     logout(request)
     return HttpResponseRedirect('/vote')
+
+
 
 def feedback(request):
     if request.method=="POST":

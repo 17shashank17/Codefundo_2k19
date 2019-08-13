@@ -6,6 +6,9 @@
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 <style>
 body, h1,h2,h3,h4,h5,h6 {font-family: "Montserrat", sans-serif}
 .w3-row-padding img {margin-bottom: 12px}
@@ -19,7 +22,19 @@ color: linen;
 .name{
 text-align: center;
 }
-
+.btn{
+  float: right;
+}
+.btn{
+  width: 30%;
+  background: none;
+  border: 2px solid #4caf50;
+  color:white;
+  padding: 5px;
+  font-size: 18px;
+  cursor: pointer;
+  margin: 12px 0;
+}
 #vote{
   padding: 20px;
   margin-left: 200px;
@@ -70,6 +85,7 @@ text-align: center;
     <h1 style="color: linen;">Welcome {{ username }}</h1>
     
     {% if user_info.voted %}
+    <h2 style="color:linen;">You Have Already Voted!</h2>
     
     {% else %}
         <h2 style="color:linen;">You Have Not Voted Yet!</h2>
@@ -81,15 +97,29 @@ text-align: center;
 </div>
 
 <div id="vote" style="visibility: hidden">
-    {% for i in candidate_info %}    
+    {% for i in candidate_info %}
+    <form method="post" action="/vote/profile" enctype="multipart/form-data">
+      {% csrf_token %}
+    <h3>    
+      <img src="{{ i.candidate_pic.url }}" width="100" height="100">  
       <img src="{{ i.logo.url }}" width="100" height="100">
       <h3 style="color:black;">{{ i.name }}</h3>
-      <img src="{{ i.candidate_pic.url }}" width="100" height="100">
-      <br><br>
+    </h3>
+    <p>
+      <input type="text" id="cand_name" value="{{ i.name }}" name="cand_name" style="color:black;">
+      <input type="text" id="token_no" name="token_no" placeholder="Enter Token">
+    </p>   
+    <input type="submit" class="btn" style="color:black; margin-left: 100px; margin-right: 200px;"><br>
+    </form>
     {% endfor %}
+    <br>
+    
+    
 </div>
 
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script>
   function make_visible(){
     var x=document.getElementById("vote");

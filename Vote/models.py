@@ -7,6 +7,10 @@ class Candidate_Enrollment(models.Model):
     aadhar_no=models.CharField(max_length=16, blank=False,null=False,unique=True)
     candidate_aadhar_pic=models.ImageField(upload_to='images/',default="",blank=True,null=True)
     count_of_votes=models.IntegerField(default=0)
+    place=models.CharField(default="",max_length=200)
+    logo=models.ImageField(upload_to="images/",default="")
+    candidate_pic=models.ImageField(upload_to="images/",default="")
+
 
 
 class Voters_Enrollment(models.Model):
@@ -15,6 +19,7 @@ class Voters_Enrollment(models.Model):
     username=models.CharField(max_length=200,default="",blank=True, null=True)
     voter_aadhar_pic=models.ImageField(upload_to='images/',default="",blank=True,null=True)
     voted=models.BooleanField(default=False)
+    place=models.CharField(default="",max_length=200)
 
 class Feedback(models.Model):
     name=models.CharField(max_length=200,blank=True, null=True)

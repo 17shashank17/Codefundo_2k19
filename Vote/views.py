@@ -1,12 +1,12 @@
-'''try: 
+try: 
     from PIL import Image
 except ImportError: 
     import Image
 
-import pytesseract'''
+from pytesseract import image_to_string
 
 from django.shortcuts import render
-from django.http import HttpResponse
+from django.http import HttpResponse,HttpResponseRedirect
 from django.contrib.auth import authenticate,login,logout
 from .models import Candidate_Enrollment, Voters_Enrollment, Feedback
 from django.contrib.auth.models import User
@@ -19,11 +19,8 @@ def home(request):
 def voter(request):
     if request.method=="POST":
         
-
+        voter_aadhar_pic=request.FILES["voter_aadhar_pic"]
         #pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR'
-
-        #text=pytesseract.image_to_string(Image.open(voter_aadhar_pic))
-        #print(text)
         
         username=request.POST.get('username')
         try:
@@ -32,15 +29,18 @@ def voter(request):
         except:
             name=request.POST.get('name')
             aadhar_no=request.POST.get('aadhar')
-            voter_aadhar_pic=request.FILES["voter_aadhar_pic"]
+            #voter_aadhar_pic=request.FILES["voter_aadhar_pic"]
             
-            user=Voters_Enrollment()
-            user.name=name
-            user.username=username
-            user.aadhar_no=aadhar_no
-            user.voter_aadhar_pic=voter_aadhar_pic
-            user.save()
-            
+            user1=Voters_Enrollment()
+            user1.name=name
+            user1.username=username
+            user1.aadhar_no=aadhar_no
+            user1.voter_aadhar_pic=voter_aadhar_pic
+            user1.place=request.POST.get("state")
+            user1.save()
+            img=Image.open(user1.voter_aadhar_pic)
+            text=image_to_string(img)
+            print(text)
             user_db=User()
             user_db.username=username
             password=request.POST.get('password')
@@ -61,6 +61,8 @@ def candidate(request):
         name=request.POST.get('name')
         aadhar_no=request.POST.get('aadhar')
         candidate_aadhar_pic=request.FILES["candidate_aadhar_pic"]
+        candidate_pic=request.FILES["candidate_pic"]
+        candidate_logo=request.FILES["candidate_logo"]
 
         user=Candidate_Enrollment()
         user.name=name
@@ -83,11 +85,17 @@ def login_user(request):
         if user:
             login(request,user)
             user_info=Voters_Enrollment.objects.get(username=username)
-            print(user_info.voted)
-            return render(request,'Vote/profile.html',{'username':username,'user_info':user_info})
+            place=user_info.place
+            #print(user_info.voted)
+            candidate_info=Candidate_Enrollment.objects.filter(place=place)
+            return render(request,'Vote/profile.html',{'username':username,'user_info':user_info, 'candidate_info':candidate_info})
 
     else:
         return render(request,'Vote/login.html')
+
+def logout_user(request):
+    logout(request)
+    return HttpResponseRedirect('/vote')
 
 def feedback(request):
     if request.method=="POST":

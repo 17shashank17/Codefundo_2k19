@@ -10,4 +10,5 @@ urlpatterns = [
     url(r'^candidate/',views.candidate,name="candidate"),
     url(r'^feedback/',views.feedback,name="feedback"),
     url(r'^login/',views.login_user,name="login_user"),
+    url(r'^logout/',views.logout_user,name="logout_user"),
 ]

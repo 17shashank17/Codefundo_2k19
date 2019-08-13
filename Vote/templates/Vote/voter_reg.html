@@ -1,3 +1,6 @@
+{% load staticfiles %}
+
+
 <!DOCTYPE html>
 <html>
 <title>Voter Registration</title>
@@ -148,6 +151,11 @@ body, h1,h2,h3,h4,h5,h6 {font-family: "Montserrat", sans-serif}
                         <i class="fa fa-envelope" aria-hidden="true"></i>
                         <input type="text" placeholder="Email" name="email" required>
                 </div>
+                <div class="textbox">
+                    <i class="fas fa-user"></i>
+                    <input type="text" placeholder="State" name="state" id="citybox" required>
+                </div>
+
                 <h3 style="color: white;">Upload Aadhar Card</h3>
                 <div class="textbox">
                   <input type="file" name="voter_aadhar_pic" accept="image/*" required>
@@ -159,4 +167,23 @@ body, h1,h2,h3,h4,h5,h6 {font-family: "Montserrat", sans-serif}
                 <input type="submit" class="btn" value="Sign Up">
         </div>           
         </form>
+
+</div>
+</div>
+</body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script>
+    var states=["Uttar Pradesh","Maharastra","West Bengal","Delhi",
+                    "Karnataka","Madhya Pradesh","Andhra Pradesh","Rajasthan",
+                    "Tamil Nadu","Bihar","Assam","Gujarat","Jammu & Kashmir","Himachal Pradesh","Haryana",
+                    "Telangana","Kerala","Tripura","Manipur","Odissa","Meghalaya","Arunanchal Pradesh"];
+        $("#citybox").autocomplete({
+            source: states,
+            autoFocus:true,
+            delay:0,
+            minLength:1
+        });
+</script>
     

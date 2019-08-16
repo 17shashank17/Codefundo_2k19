@@ -12,8 +12,6 @@ class Candidate_Enrollment(models.Model):
     candidate_pic=models.ImageField(upload_to="images/",default="")
     party=models.CharField(default="",max_length=200)
 
-
-
 class Voters_Enrollment(models.Model):
     name=models.CharField(max_length=200,blank=True, null=True)
     aadhar_no=models.CharField(max_length=16, blank=False,null=False,unique=True)
@@ -23,7 +21,6 @@ class Voters_Enrollment(models.Model):
     place=models.CharField(default="",max_length=200)
     tokens=models.CharField(default="",max_length=20)
     token_expire=models.BooleanField(default=False)
-
 
 class Feedback(models.Model):
     name=models.CharField(max_length=200,blank=True, null=True)

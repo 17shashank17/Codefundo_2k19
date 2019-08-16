@@ -110,7 +110,6 @@ def profile(request):
             voter.voted=True
             voter.token_expire=True
             voter.save()
-
             return logout_user(request)      #vote is counted
         else:
             return logout_user(request)      #vote is not counted

@@ -22,7 +22,7 @@ body{
 .login-box{
   width: 320px;
   position: absolute;
-  top: 60%;
+  top: 63%;
   left: 54%;
   transform: translate(-50%,-50%);
   color: black;
@@ -114,12 +114,13 @@ body, h1,h2,h3,h4,h5,h6 {font-family: "Montserrat", sans-serif}
 
   <header class="w3-container w3-padding-32 w3-center w3-black" id="home">
     <h1 class="w3-jumbo"> Voter Enrollment</h1>
-    <p>Fill The Details</p><br><br>
+    <p>Fill The Details</p>
+    <label id="label_incorrect" style="visibility: hidden; color: linen;">Incorrect</label>
   </header>
 <br><br>
 
 <div class="login-box1">
-    <form id="SignUp-form" method="post" enctype="multipart/form-data">
+    <form onsubmit="return validate()" id="SignUp-form" method="post" enctype="multipart/form-data">
         {% csrf_token %}
         <div class="login-box">
                 <div class="textbox">
@@ -129,27 +130,27 @@ body, h1,h2,h3,h4,h5,h6 {font-family: "Montserrat", sans-serif}
 
                 <div class="textbox">
                   <i class="fas fa-user"></i>
-                  <input type="text" placeholder="Username" name="username" required>
+                  <input id="user" type="text" placeholder="Username" name="username" required>
               </div>
 
                 <div class="textbox">
                     <i class="fa fa-user-circle"></i>
-                    <input type="text" placeholder="Aadhar" name="aadhar" required>
+                    <input id="aadhar" type="text" placeholder="Aadhar" name="aadhar" required>
                 </div>
                 
                 <div class="textbox">
                     <i class="fas fa-lock"></i>
-                    <input type="password" placeholder="Password" name="password" required>
+                    <input id="pass" type="password" placeholder="Password" name="password" required>
                 </div>
 
                 <div class="textbox">
                         <i class="fas fa-lock"></i>
-                        <input type="password" placeholder="Confirm Password" name="con_password" required>
+                        <input id="conf_pass" type="password" placeholder="Confirm Password" name="con_password" required>
                 </div>
 
                 <div class="textbox">
                         <i class="fa fa-envelope" aria-hidden="true"></i>
-                        <input type="text" placeholder="Email" name="email" required>
+                        <input id="email" type="text" placeholder="Email" name="email" required>
                 </div>
                 <div class="textbox">
                     <i class="fas fa-user"></i>
@@ -164,7 +165,7 @@ body, h1,h2,h3,h4,h5,h6 {font-family: "Montserrat", sans-serif}
                 <br>
             
                 
-                <input type="submit" class="btn" value="Sign Up">
+                <input onclick="validate()" type="submit" class="btn" value="Sign Up">
         </div>           
         </form>
 
@@ -185,5 +186,45 @@ body, h1,h2,h3,h4,h5,h6 {font-family: "Montserrat", sans-serif}
             delay:0,
             minLength:1
         });
+</script>
+<script type="text/javascript">
+  function validate(){
+    var pass=document.getElementById("pass").value;
+    var conf_pass=document.getElementById("conf_pass").value;
+    var email=document.getElementById("email").value;
+    var user=document.getElementById("user").value;
+    var aadhar=document.getElementById("aadhar").value;
+    var x=document.getElementById("label_incorrect");
+    var regx_user=/^[a-z0-9_-]{3,15}$/;
+    var regx_aadhar = /^\d{12}$/;
+    var regx_email=/^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/;
+
+    if (regx_user.test(user)==false){
+      x.innerHTML="Invalid Username";
+      x.style.visibility="visible";
+      return false;
+    }
+
+    if(regx_aadhar.test(aadhar)==false){
+      x.innerHTML="Invalid Aadhar Number";
+      x.style.visibility="visible";
+      return false;
+    }
+
+    if(pass != conf_pass){
+      
+      x.innerHTML="Password Do Not Matches";
+      x.style.visibility="visible";
+      return false;
+    }
+    if(regx_email.test(email)==false){
+      x.innerHTML="Invalid Email ID";
+      x.style.visibility="visible";
+      return false;
+    }
+
+  return true;
+  }
+
 </script>
     

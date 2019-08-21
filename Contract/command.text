@@ -1,0 +1,71 @@
+cd; Invoke-WebRequest -Uri https://aka.ms/workbenchAADSetupScript -OutFile workbenchAADSetupScript.ps1; ./workbenchAADSetupScript.ps1 -SubscriptionID ad9733d6-f795-452b-b0af-1033ebe8ddb2 -ResourceGroupName codefundo -DeploymentId b5cpqa
+
+
+
+GTJFVLV8U
+
+organisation name:Codefundo2019sas
+initial domain name: sascodefundo
+
+app id:76060df0-05af-4293-8cb0-b6472a7d923d
+
+pragma solidity ^0.5.0;
+
+contract simple {
+    int Totalvote;
+    int bjpv;
+    int cv;
+    int aapv;
+    int notav;
+    
+
+    constructor() public{
+        Totalvote=0;
+        bjpv=0;
+        cv=0;
+        aapv=0;
+        notav=0;
+    }
+
+    function bpg() public {
+        bjpv++;
+        Totalvote++;
+     
+ 
+        
+    }
+    function congress() public {
+        cv++;
+        Totalvote++;
+     
+    
+    }
+    function aap() public {
+        aapv++;
+        Totalvote++;
+     
+
+    }
+    function nota() public {
+        notav++;
+        Totalvote++;
+      
+
+    }
+
+    function getbpg() public view returns (int){
+        return bjpv;
+    }
+    function getcongress() public view returns (int){
+        return cv;
+    }
+    function getaap() public view returns (int){
+        return aapv;
+    }
+    function getnota() public view returns (int){
+        return notav;
+    }
+    function gettv() public view returns (int){
+        return Totalvote;
+    }
+}

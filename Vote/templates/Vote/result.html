@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<title>Candidate Registration</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+@import "https://use.fontawesome.com/releases/v5.5.0/css/all.css";
+
+#box{
+    margin-left: 200px;
+}
+#live{
+    text-align: center;
+}
+
+body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
+.w3-bar,h1,button {font-family: "Montserrat", sans-serif}
+.fa-anchor,.fa-coffee {font-size:200px}
+body, h1,h2,h3,h4,h5,h6 {font-family: "Montserrat", sans-serif}
+.w3-row-padding img {margin-bottom: 12px}
+.w3-sidebar {width: 120px;background: #222;}
+#main {margin-left: 120px}
+@media only screen and (max-width: 600px) {#main {margin-left: 0}}
+</style>
+
+<body class="w3-black">
+    <div id="live">
+        <h1 style="color: white">Live Vote Count</h1>
+    </div>
+
+<nav class="w3-sidebar w3-bar-block w3-small w3-hide-small w3-center">
+  <a href="/vote" class="w3-bar-item w3-button w3-padding-large w3-black">
+    <i class="fa fa-home w3-xxlarge"></i>
+    <p>HOME</p>
+  </a>
+  <a href="/vote/voter" class="w3-bar-item w3-button w3-padding-large w3-hover-black">
+    <i class="fa fa-user w3-xxlarge"></i>
+    <p>Voter Registration</p>
+  </a>
+  <a href="/vote/login" class="w3-bar-item w3-button w3-padding-large w3-hover-black">
+    <i class="fa fa-eye w3-xxlarge"></i>
+    <p>Log In</p>
+  </a>
+  <a href="/vote/result" class="w3-bar-item w3-button w3-padding-large w3-hover-black">
+    <i class="fa fa-envelope w3-xxlarge"></i>
+    <p>RESULT</p>
+</nav>
+
+<div id="box">
+    {% for i in candidate_info %}
+        <img src="{{ i.logo.url }}" width="100" height="100">
+        <h2 style="color: linen">{{ i.party }}  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <p style="display: inline-block;  text-align: right">{{ i.count_of_votes }}</p>&nbsp;</h2>
+    {% endfor %}
+</div>

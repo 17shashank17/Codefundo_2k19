@@ -1,0 +1,121 @@
+{
+    "ApplicationName": "Election",
+    "DisplayName": "Online Secure Voting System",
+    "Description": "",
+    "ApplicationRoles": [
+        {
+            "Name": "Admin",
+            "Description": "Admin"
+        },
+        {
+            "Name": "User",
+            "Description": "User"
+        },
+
+    ],
+    "Workflows": [
+        {
+            "Name": "Election",
+            "DisplayName": "Online Secure Voting System",
+            "Description": "",
+            "Initiators": ["Admin","User"],
+            "StartState": "Creating",
+            "Properties": [
+                {
+                    "Name":"Totalvote",
+                    "DisplayName":"Total Vote",
+                    "Description":"Number of votes casted",
+                    "Type":{
+                        "Name":"int"
+                    }
+                },
+                {
+                    "Name":"bjpv",
+                    "DisplayName":"Total Vote of BJP",
+                    "Description":"Number of votes casted to BJP",
+                    "Type":{
+                        "Name":"int"
+                    }
+                },
+                {
+                    "Name":"cv",
+                    "DisplayName":"Total Vote of Congress",
+                    "Description":"Number of votes casted to Congress",
+                    "Type":{
+                        "Name":"int"
+                    }
+                },
+                {
+                    "Name":"aapv",
+                    "DisplayName":"Total Vote of AAP",
+                    "Description":"Number of votes casted to AAP",
+                    "Type":{
+                        "Name":"int"
+                    }
+                },
+                {
+                    "Name":"notav",
+                    "DisplayName":"Total Vote to NOTA",
+                    "Description":"Number of votes casted to NOTA",
+                    "Type":{
+                        "Name":"int"
+                    }
+                }
+    
+            ],
+            "Constructor": {
+                "Parameters": [
+                    {
+
+                    }
+                ]
+            },
+            "Functions": [
+                {
+                    "Name":"bjp",
+                    "DisplayName":"BJP Portal",
+                    "Description":"...",
+                    "Parameters":[
+                        {
+
+                        }
+                    ]
+                }
+                {
+                    "Name":"congress",
+                    "DisplayName":"Congress Portal",
+                    "Description":"...",
+                    "Parameters":[
+                        {
+
+                        }
+                    ]
+                }
+                {
+                    "Name":"aap",
+                    "DisplayName":"AAP Portal",
+                    "Description":"...",
+                    "Parameters":[
+                        {
+
+                        }
+                    ]
+                }
+                {
+                    "Name":"nota",
+                    "DisplayName":"NOTA Portal",
+                    "Description":"...",
+                    "Parameters":[
+                        {
+
+                        }
+                    ]
+                }
+                
+            ],
+            "States": [
+    
+            ]
+        }
+      ]
+    }

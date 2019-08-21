@@ -1,0 +1,147 @@
+
+
+  {
+    "ApplicationName": "Election",
+    "DisplayName": "Online Voting System",
+    "Description": "A web application for online voting system",
+    "ApplicationRoles": [
+      
+    ],
+    "Workflows": [
+      {
+        "Name": "Election",
+        "DisplayName": "Request Response",
+        "Description": "A simple workflow to send a request and receive a response.",
+      }
+        ],
+    "Constructors":{
+    },
+
+
+	"output": {
+		"Functions": [
+			{
+				"constant": false,
+				"inputs": [
+					{
+						"name": "_candidateId",
+						"type": "uint256"
+					}
+				],
+				"name": "vote",
+				"outputs": [],
+				"payable": false,
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"constant": false,
+				"inputs": [],
+				"name": "Election_Cand",
+				"outputs": [],
+				"payable": false,
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"constant": true,
+				"inputs": [],
+				"name": "candidatesCount",
+				"outputs": [
+					{
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"payable": false,
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"constant": true,
+				"inputs": [
+					{
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"name": "candidates",
+				"outputs": [
+					{
+						"name": "id",
+						"type": "uint256"
+					},
+					{
+						"name": "name",
+						"type": "string"
+					},
+					{
+						"name": "voteCount",
+						"type": "uint256"
+					}
+				],
+				"payable": false,
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"constant": true,
+				"inputs": [
+					{
+						"name": "",
+						"type": "address"
+					}
+				],
+				"name": "voters",
+				"outputs": [
+					{
+						"name": "",
+						"type": "bool"
+					}
+				],
+				"payable": false,
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": true,
+						"name": "_candidateId",
+						"type": "uint256"
+					}
+				],
+				"name": "votedEvent",
+				"type": "event"
+			}
+		],
+		"devdoc": {
+			"methods": {}
+		},
+		"userdoc": {
+			"methods": {}
+		}
+	},
+	"settings": {
+		"compilationTarget": {
+			"browser/Voting.sol": "Election"
+		},
+		"evmVersion": "byzantium",
+		"libraries": {},
+		"optimizer": {
+			"enabled": false,
+			"runs": 200
+		},
+		"remappings": []
+	},
+	"sources": {
+		"browser/Voting.sol": {
+			"keccak256": "0x2e96de41e30565ac59c540ca5b847a294ccfaa139c78b5f3cb7a7f27001fad20",
+			"urls": [
+				"bzz-raw://db36241ae8cb87023b41d66cb834481e3b851cdc406c9dfaa34399f4dd95ec19"
+			]
+		}
+	},
+	"version": 1
+}

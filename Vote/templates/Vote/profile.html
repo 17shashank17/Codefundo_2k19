@@ -44,7 +44,9 @@ text-align: center;
   border-radius: 5px;
 
 }
-
+#invalid{
+  text-align: center;
+}
 @media only screen and (max-width: 600px) {#main {margin-left: 0}}
 </style>
 <body class="w3-black">
@@ -52,15 +54,16 @@ text-align: center;
 
 <nav class="w3-sidebar w3-bar-block w3-small w3-hide-small w3-center">
 
-  <img src="/w3images/avatar_smoke.jpg" style="width:100%">
   <a href="/vote/profile" class="w3-bar-item w3-button w3-padding-large w3-black">
     <i class="fa fa-home w3-xxlarge"></i>
     <p>HOME</p>
   </a>
-  <a href="/vote/voter" class="w3-bar-item w3-button w3-padding-large w3-hover-black">
-    <i class="fa fa-user w3-xxlarge"></i>
-    <p>Voter Registration</p>
+  {% if staff %}
+  <a href="/vote/candidate" class="w3-bar-item w3-button w3-padding-large w3-hover-black">
+    <i class="fa fa-envelope w3-xxlarge"></i>
+    <p>Candidate Registration</p>
   </a>
+  {% endif %}
   <a href="/vote/token" class="w3-bar-item w3-button w3-padding-large w3-hover-black">
     <i class="fa fa-eye w3-xxlarge"></i>
     <p>Get Token</p>
@@ -71,15 +74,6 @@ text-align: center;
   </a>
 </nav>
 
-
-<div class="w3-top w3-hide-large w3-hide-medium" id="myNavbar">
-  <div class="w3-bar w3-black w3-opacity w3-hover-opacity-off w3-center w3-small">
-    <a href="#" class="w3-bar-item w3-button" style="width:25% !important">HOME</a>
-    <a href="#about" class="w3-bar-item w3-button" style="width:25% !important">ABOUT</a>
-    <a href="#photos" class="w3-bar-item w3-button" style="width:25% !important">PHOTOS</a>
-    <a href="#contact" class="w3-bar-item w3-button" style="width:25% !important">CONTACT</a>
-  </div>
-</div>
 
 <div class="name">
     <h1 style="color: linen;">Welcome {{ username }}</h1>
@@ -95,7 +89,11 @@ text-align: center;
     {% endif %}
         
 </div>
-
+<div id="invalid">
+  {% if token %}
+    <h2>Invalid Token! Please Try Again</h2>
+  {% endif %}
+</div>
 <div id="vote" style="visibility: hidden">
     {% for i in candidate_info %}
     <form method="post" action="/vote/profile" enctype="multipart/form-data">
@@ -109,7 +107,7 @@ text-align: center;
       <input type="text" id="cand_name" value="{{ i.name }}" name="cand_name" style="color:black;">
       <input type="text" id="token_no" name="token_no" placeholder="Enter Token" style="color: black;">
     </p>   
-    <input type="submit" class="btn" style="color:black; margin-left: 100px; margin-right: 200px;"><br>
+    <input type="submit" class="btn" style="color:black; margin-left: 100px; margin-right: 200px;" value="Vote Now"><br>
     </form>
     {% endfor %}
     <br>

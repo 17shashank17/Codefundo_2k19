@@ -13,6 +13,15 @@ from django.contrib.auth import authenticate,login,logout
 from .models import Candidate_Enrollment, Voters_Enrollment, Feedback
 from django.contrib.auth.models import User
 from twilio.rest import Client
+from django.core.mail import send_mail
+from django.conf import settings
+
+def send_mail_token(token):
+    subject = 'Highly Secured Token'
+    message = token
+    email_from = settings.EMAIL_HOST_USER
+    recipient_list = ['17shashank17@gmail.com',]
+    send_mail( subject, message, email_from, recipient_list )
 
 def send_token(token,mobile):
     account_sid = 'AC3cff54beeca14b3b55dc08f74fc2862d' 
@@ -108,6 +117,7 @@ def save_token(request):
     if user_obj.token_expire==True:
         return render(request,'Vote/token.html',{'token':'You Have Already Voted!'})
     elif len(user_obj.tokens)!=0:
+        #send_mail_token(user_obj.tokens)
         return render(request,'Vote/token.html',{'token':'You Have Already Generated Token!'})
     else:
         email="17shashank17@gmail.com"
@@ -115,6 +125,7 @@ def save_token(request):
         user_obj.tokens=token
         user_obj.save()
         send_token(token,'+919632856010')
+        #send_mail_token(token)
         return render(request,'Vote/token.html',{'token':token})
 
 
@@ -122,9 +133,16 @@ def profile(request):
     if request.method=="POST":
         username=request.session['username']
         print(username)
+        user=User.objects.get(username=username)
+        staff=False
+        if user.is_staff:
+            staff=True
         voter=Voters_Enrollment.objects.get(username=username)
         name=request.POST.get("cand_name")
         token=request.POST.get("token_no")
+        user_info=Voters_Enrollment.objects.get(username=username)
+        place=user_info.place
+        candidate_info=Candidate_Enrollment.objects.filter(place=place)
         print(token)
         print(voter.tokens)
         if token==voter.tokens:
@@ -135,24 +153,32 @@ def profile(request):
             voter.token_expire=True
             print(voter.token_expire)
             voter.save()
-            return logout_user(request)      #vote is counted
+            return render(request,'Vote/done.html')      #vote is counted
         else:
-            return logout_user(request)      #vote is not counted
+            #return logout_user(request)      #vote is not counted
+            return render(request,'Vote/profile.html',{'username':username,'user_info':user_info, 'candidate_info':candidate_info,'token':True,'staff':staff,})
 
     else:
-        
         username=request.session['username']
         print("hi",username)
         user_info=Voters_Enrollment.objects.get(username=username)
         place=user_info.place
         candidate_info=Candidate_Enrollment.objects.filter(place=place)
-        return render(request,'Vote/profile.html',{'username':username,'user_info':user_info, 'candidate_info':candidate_info})
+        user=User.objects.get(username=username)
+        staff=False
+        if user.is_staff:
+            staff=True
+        return render(request,'Vote/profile.html',{'username':username,'user_info':user_info, 'candidate_info':candidate_info,'token':False,'staff':staff,})
  
 
 def logout_user(request):
     logout(request)
     return HttpResponseRedirect('/vote')
 
+def result_election(request):
+    place="Uttar Pradesh"
+    candidate_info=Candidate_Enrollment.objects.filter(place=place)
+    return render(request,'Vote/result.html',{'candidate_info':candidate_info})
 
 
 def feedback(request):

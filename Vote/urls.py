@@ -13,4 +13,5 @@ urlpatterns = [
     url(r'^logout/',views.logout_user,name="logout_user"),
     url(r'^profile',views.profile,name="profile"),
     url(r'^token',views.save_token,name="save_token"),
+    url(r'^result',views.result_election,name="result_election"),
 ]

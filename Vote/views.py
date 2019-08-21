@@ -84,7 +84,7 @@ def candidate(request):
         user.candidate_aadhar_pic=candidate_aadhar_pic
         user.save()
         
-        return render(request,'Vote/home.html')
+        return HttpResponseRedirect('/vote/profile')
 
     else:
         return render(request,"Vote/candidate_reg.html")

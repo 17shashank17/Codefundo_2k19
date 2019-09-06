@@ -16,12 +16,12 @@ def send_mail_token(token):
     subject = 'Highly Secured Token'
     message = token
     email_from = settings.EMAIL_HOST_USER
-    recipient_list = ['17shashank17@gmail.com',]
+    recipient_list = ['',]
     send_mail( subject, message, email_from, recipient_list )
 
 def send_token(token,mobile):
-    account_sid = 'AC3cff54beeca14b3b55dc08f74fc2862d' 
-    auth_token = '8de3ca4f3e5611d963d239c97ae5d406'
+    account_sid = '' 
+    auth_token = ''
     client = Client(account_sid, auth_token)
 
     message = client.messages.create(

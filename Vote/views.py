@@ -1,11 +1,7 @@
-try: 
-    from PIL import Image
-except ImportError: 
-    import Image
+
 
 import random
 
-from pytesseract import image_to_string
 
 from django.shortcuts import render
 from django.http import HttpResponse,HttpResponseRedirect
